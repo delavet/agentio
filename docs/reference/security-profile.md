@@ -53,9 +53,7 @@ EPE registers actions in this fixed order within each matched rule:
 
 `mcpToolPolicy` is a non-terminal allow/deny filter for MCP JSON-RPC `tools/call`. `defaultAction` defaults to `deny`; its ordered `rules` match method and optionally tool names. `unsupportedVersionAction` defaults to `deny`, and `denyResponse` defaults to HTTP 403. It buffers complete request bodies and only understands MCP versions currently documented in [Configure MCP access control](../tasks/configure-mcp-access-control.md).
 
-`tokenTransformation` injects credentials into resource requests. In OAuth2
-mode, DeviceAuthorization and Token operations return a terminal local response;
-Resource remains non-terminal. It has these fields:
+`tokenTransformation` injects credentials into resource requests. In OAuth2 mode, DeviceAuthorization and Token operations return a terminal local response; Resource remains non-terminal. It has these fields:
 
 | Field | Behavior |
 | --- | --- |
@@ -72,12 +70,7 @@ An unavailable signer type or malformed credential reference — including an un
 
 `AliyunSTS` detects ACS3/V3, V1-ROA, and OSS V4 from the trimmed `Authorization` header. Their required prefixes are `ACS3-HMAC-SHA256`, `acs` (also requiring a `:`), and `OSS4-HMAC-SHA256`, respectively, each followed by a space. When none matches, V1-RPC is detected from a parseable raw query containing non-empty `Signature` and `AccessKeyId` parameters and exactly `SignatureMethod=HMAC-SHA1`. A request that meets none of these requirements is unsupported; detection fails and the action follows its configured `failStrategy` (`Block` by default, or unmodified forwarding for `Allow`/`Ignore`).
 
-OAuth2 branch selection, credential-source restrictions, and response-field
-constraints are validated during EPE policy projection. The CRDs provide basic
-types and grant-set constraints without OAuth2 cross-field CEL. An invalid OAuth2
-action rejects the profile version under the same collection rules described
-above. See [Configure OAuth credential isolation](../tasks/broker-oauth-credentials.md)
-for Content-Type decoding, scope and session boundaries, and a complete example.
+OAuth2 branch selection, credential-source restrictions, and response-field constraints are validated during EPE policy projection. The CRDs provide basic types and grant-set constraints without OAuth2 cross-field CEL. An invalid OAuth2 action rejects the profile version under the same collection rules described above. See [Configure OAuth credential isolation](../tasks/broker-oauth-credentials.md) for Content-Type decoding, scope and session boundaries, and a complete example.
 
 ## Audit configuration
 
